@@ -65,7 +65,7 @@ export default function App() {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if(event.key == '/') {
+      if(event.key === '/') {
         event.preventDefault();
         inputRef.current.focus();
       }
