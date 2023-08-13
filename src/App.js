@@ -9,6 +9,7 @@ import './App.css'
 export default function App() {
   const [todo, setTodo] = useState([]);
   const [todoId, setTodoId] = useState(0);
+  const inputRef = useRef(null);
 
   const handleSubmit = (todoText) => {
     if(todoText.trim() === '') {
@@ -49,6 +50,21 @@ export default function App() {
     localStorage.setItem("todo", JSON.stringify(todo))
   }, [todo])
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if(event.key == '/') {
+        event.preventDefault();
+        inputRef.current.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
     <Container>
       <Title>Your To-Do List</Title>
@@ -58,7 +74,7 @@ export default function App() {
         e.target.todo.value = ''
       }}>
         <TextInputWrapper>
-          <TextInput type='text' placeholder='Create TODO  . . .' name='todo' />
+          <TextInput type='text' placeholder='Press ( / ) to create TODO  . . .' name='todo' ref={inputRef}/>
           <SubmitInput type='submit' value=''>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="rgba(254, 254, 254, 0.35)" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
