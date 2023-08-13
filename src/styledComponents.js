@@ -97,6 +97,9 @@ export const ListItem = styled.li`
   color: rgba(0, 0, 0, 0.8);
 
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const TodoText = styled.span`
